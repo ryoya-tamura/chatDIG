@@ -1,0 +1,617 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F6A4CB2C2A24AB1A00D3D1F4 /* ChatDIGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A4CB2B2A24AB1A00D3D1F4 /* ChatDIGApp.swift */; };
+		F6A4CB2E2A24AB1A00D3D1F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A4CB2D2A24AB1A00D3D1F4 /* ContentView.swift */; };
+		F6A4CB302A24AB1C00D3D1F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6A4CB2F2A24AB1C00D3D1F4 /* Assets.xcassets */; };
+		F6A4CB342A24AB1C00D3D1F4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6A4CB332A24AB1C00D3D1F4 /* Preview Assets.xcassets */; };
+		F6A4CB3E2A24AB1C00D3D1F4 /* ChatDIGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A4CB3D2A24AB1C00D3D1F4 /* ChatDIGTests.swift */; };
+		F6A4CB482A24AB1C00D3D1F4 /* ChatDIGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A4CB472A24AB1C00D3D1F4 /* ChatDIGUITests.swift */; };
+		F6A4CB4A2A24AB1C00D3D1F4 /* ChatDIGUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A4CB492A24AB1C00D3D1F4 /* ChatDIGUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F6A4CB3A2A24AB1C00D3D1F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6A4CB202A24AB1A00D3D1F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6A4CB272A24AB1A00D3D1F4;
+			remoteInfo = ChatDIG;
+		};
+		F6A4CB442A24AB1C00D3D1F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6A4CB202A24AB1A00D3D1F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6A4CB272A24AB1A00D3D1F4;
+			remoteInfo = ChatDIG;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F6A4CB282A24AB1A00D3D1F4 /* ChatDIG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatDIG.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6A4CB2B2A24AB1A00D3D1F4 /* ChatDIGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDIGApp.swift; sourceTree = "<group>"; };
+		F6A4CB2D2A24AB1A00D3D1F4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F6A4CB2F2A24AB1C00D3D1F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F6A4CB312A24AB1C00D3D1F4 /* ChatDIG.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatDIG.entitlements; sourceTree = "<group>"; };
+		F6A4CB332A24AB1C00D3D1F4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F6A4CB392A24AB1C00D3D1F4 /* ChatDIGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatDIGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6A4CB3D2A24AB1C00D3D1F4 /* ChatDIGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDIGTests.swift; sourceTree = "<group>"; };
+		F6A4CB432A24AB1C00D3D1F4 /* ChatDIGUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatDIGUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6A4CB472A24AB1C00D3D1F4 /* ChatDIGUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDIGUITests.swift; sourceTree = "<group>"; };
+		F6A4CB492A24AB1C00D3D1F4 /* ChatDIGUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDIGUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F6A4CB252A24AB1A00D3D1F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6A4CB362A24AB1C00D3D1F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6A4CB402A24AB1C00D3D1F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F6A4CB1F2A24AB1A00D3D1F4 = {
+			isa = PBXGroup;
+			children = (
+				F6A4CB2A2A24AB1A00D3D1F4 /* ChatDIG */,
+				F6A4CB3C2A24AB1C00D3D1F4 /* ChatDIGTests */,
+				F6A4CB462A24AB1C00D3D1F4 /* ChatDIGUITests */,
+				F6A4CB292A24AB1A00D3D1F4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F6A4CB292A24AB1A00D3D1F4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F6A4CB282A24AB1A00D3D1F4 /* ChatDIG.app */,
+				F6A4CB392A24AB1C00D3D1F4 /* ChatDIGTests.xctest */,
+				F6A4CB432A24AB1C00D3D1F4 /* ChatDIGUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6A4CB2A2A24AB1A00D3D1F4 /* ChatDIG */ = {
+			isa = PBXGroup;
+			children = (
+				F6A4CB2B2A24AB1A00D3D1F4 /* ChatDIGApp.swift */,
+				F6A4CB2D2A24AB1A00D3D1F4 /* ContentView.swift */,
+				F6A4CB2F2A24AB1C00D3D1F4 /* Assets.xcassets */,
+				F6A4CB312A24AB1C00D3D1F4 /* ChatDIG.entitlements */,
+				F6A4CB322A24AB1C00D3D1F4 /* Preview Content */,
+			);
+			path = ChatDIG;
+			sourceTree = "<group>";
+		};
+		F6A4CB322A24AB1C00D3D1F4 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F6A4CB332A24AB1C00D3D1F4 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F6A4CB3C2A24AB1C00D3D1F4 /* ChatDIGTests */ = {
+			isa = PBXGroup;
+			children = (
+				F6A4CB3D2A24AB1C00D3D1F4 /* ChatDIGTests.swift */,
+			);
+			path = ChatDIGTests;
+			sourceTree = "<group>";
+		};
+		F6A4CB462A24AB1C00D3D1F4 /* ChatDIGUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F6A4CB472A24AB1C00D3D1F4 /* ChatDIGUITests.swift */,
+				F6A4CB492A24AB1C00D3D1F4 /* ChatDIGUITestsLaunchTests.swift */,
+			);
+			path = ChatDIGUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F6A4CB272A24AB1A00D3D1F4 /* ChatDIG */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6A4CB4D2A24AB1C00D3D1F4 /* Build configuration list for PBXNativeTarget "ChatDIG" */;
+			buildPhases = (
+				F6A4CB242A24AB1A00D3D1F4 /* Sources */,
+				F6A4CB252A24AB1A00D3D1F4 /* Frameworks */,
+				F6A4CB262A24AB1A00D3D1F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChatDIG;
+			productName = ChatDIG;
+			productReference = F6A4CB282A24AB1A00D3D1F4 /* ChatDIG.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F6A4CB382A24AB1C00D3D1F4 /* ChatDIGTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6A4CB502A24AB1C00D3D1F4 /* Build configuration list for PBXNativeTarget "ChatDIGTests" */;
+			buildPhases = (
+				F6A4CB352A24AB1C00D3D1F4 /* Sources */,
+				F6A4CB362A24AB1C00D3D1F4 /* Frameworks */,
+				F6A4CB372A24AB1C00D3D1F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F6A4CB3B2A24AB1C00D3D1F4 /* PBXTargetDependency */,
+			);
+			name = ChatDIGTests;
+			productName = ChatDIGTests;
+			productReference = F6A4CB392A24AB1C00D3D1F4 /* ChatDIGTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F6A4CB422A24AB1C00D3D1F4 /* ChatDIGUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6A4CB532A24AB1C00D3D1F4 /* Build configuration list for PBXNativeTarget "ChatDIGUITests" */;
+			buildPhases = (
+				F6A4CB3F2A24AB1C00D3D1F4 /* Sources */,
+				F6A4CB402A24AB1C00D3D1F4 /* Frameworks */,
+				F6A4CB412A24AB1C00D3D1F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F6A4CB452A24AB1C00D3D1F4 /* PBXTargetDependency */,
+			);
+			name = ChatDIGUITests;
+			productName = ChatDIGUITests;
+			productReference = F6A4CB432A24AB1C00D3D1F4 /* ChatDIGUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F6A4CB202A24AB1A00D3D1F4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					F6A4CB272A24AB1A00D3D1F4 = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					F6A4CB382A24AB1C00D3D1F4 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = F6A4CB272A24AB1A00D3D1F4;
+					};
+					F6A4CB422A24AB1C00D3D1F4 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = F6A4CB272A24AB1A00D3D1F4;
+					};
+				};
+			};
+			buildConfigurationList = F6A4CB232A24AB1A00D3D1F4 /* Build configuration list for PBXProject "ChatDIG" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F6A4CB1F2A24AB1A00D3D1F4;
+			productRefGroup = F6A4CB292A24AB1A00D3D1F4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6A4CB272A24AB1A00D3D1F4 /* ChatDIG */,
+				F6A4CB382A24AB1C00D3D1F4 /* ChatDIGTests */,
+				F6A4CB422A24AB1C00D3D1F4 /* ChatDIGUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F6A4CB262A24AB1A00D3D1F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6A4CB342A24AB1C00D3D1F4 /* Preview Assets.xcassets in Resources */,
+				F6A4CB302A24AB1C00D3D1F4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6A4CB372A24AB1C00D3D1F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6A4CB412A24AB1C00D3D1F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F6A4CB242A24AB1A00D3D1F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6A4CB2E2A24AB1A00D3D1F4 /* ContentView.swift in Sources */,
+				F6A4CB2C2A24AB1A00D3D1F4 /* ChatDIGApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6A4CB352A24AB1C00D3D1F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6A4CB3E2A24AB1C00D3D1F4 /* ChatDIGTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6A4CB3F2A24AB1C00D3D1F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6A4CB482A24AB1C00D3D1F4 /* ChatDIGUITests.swift in Sources */,
+				F6A4CB4A2A24AB1C00D3D1F4 /* ChatDIGUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F6A4CB3B2A24AB1C00D3D1F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F6A4CB272A24AB1A00D3D1F4 /* ChatDIG */;
+			targetProxy = F6A4CB3A2A24AB1C00D3D1F4 /* PBXContainerItemProxy */;
+		};
+		F6A4CB452A24AB1C00D3D1F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F6A4CB272A24AB1A00D3D1F4 /* ChatDIG */;
+			targetProxy = F6A4CB442A24AB1C00D3D1F4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F6A4CB4B2A24AB1C00D3D1F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F6A4CB4C2A24AB1C00D3D1F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		F6A4CB4E2A24AB1C00D3D1F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ChatDIG/ChatDIG.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ChatDIG/Preview Content\"";
+				DEVELOPMENT_TEAM = NVT9J3L3BU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = chatdig.ChatDIG;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F6A4CB4F2A24AB1C00D3D1F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ChatDIG/ChatDIG.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ChatDIG/Preview Content\"";
+				DEVELOPMENT_TEAM = NVT9J3L3BU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = chatdig.ChatDIG;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F6A4CB512A24AB1C00D3D1F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NVT9J3L3BU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = chatdig.ChatDIGTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChatDIG.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ChatDIG";
+			};
+			name = Debug;
+		};
+		F6A4CB522A24AB1C00D3D1F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NVT9J3L3BU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = chatdig.ChatDIGTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChatDIG.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ChatDIG";
+			};
+			name = Release;
+		};
+		F6A4CB542A24AB1C00D3D1F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NVT9J3L3BU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = chatdig.ChatDIGUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ChatDIG;
+			};
+			name = Debug;
+		};
+		F6A4CB552A24AB1C00D3D1F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NVT9J3L3BU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = chatdig.ChatDIGUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ChatDIG;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6A4CB232A24AB1A00D3D1F4 /* Build configuration list for PBXProject "ChatDIG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6A4CB4B2A24AB1C00D3D1F4 /* Debug */,
+				F6A4CB4C2A24AB1C00D3D1F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6A4CB4D2A24AB1C00D3D1F4 /* Build configuration list for PBXNativeTarget "ChatDIG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6A4CB4E2A24AB1C00D3D1F4 /* Debug */,
+				F6A4CB4F2A24AB1C00D3D1F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6A4CB502A24AB1C00D3D1F4 /* Build configuration list for PBXNativeTarget "ChatDIGTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6A4CB512A24AB1C00D3D1F4 /* Debug */,
+				F6A4CB522A24AB1C00D3D1F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6A4CB532A24AB1C00D3D1F4 /* Build configuration list for PBXNativeTarget "ChatDIGUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6A4CB542A24AB1C00D3D1F4 /* Debug */,
+				F6A4CB552A24AB1C00D3D1F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6A4CB202A24AB1A00D3D1F4 /* Project object */;
+}
