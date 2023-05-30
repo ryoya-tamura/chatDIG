@@ -19,7 +19,7 @@ struct ContentView: View {
                     .font(.title)
                     .padding(.top,200)
                 
-                Text("-経験から強みを見つけよう-")
+                Text("-経験から強みを見つけてみよう-")
                     //.padding()
                     Spacer()
                 Button("あなたの強みを見つける", action:{
