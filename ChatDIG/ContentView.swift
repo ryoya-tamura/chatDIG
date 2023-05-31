@@ -103,7 +103,7 @@ struct ContentView: View {
                 }else {
                     Text("あなたの強みは...")
                         .padding()
-                    Text("分析結果")//関数を代入
+                    Text("分析結果ずら")//関数を代入
                         .padding()
                     Button("異なる経験から分析してみる", action:{
                         answerNumber = answerNumber - 2
