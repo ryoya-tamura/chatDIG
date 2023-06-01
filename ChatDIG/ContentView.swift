@@ -10,7 +10,7 @@ import OpenAISwift
 
 struct Message: Hashable {
     let text: String
-    let isUserMessage: Bool
+    let isUserMessage: Int
 }
 
 struct ContentView: View {
@@ -18,8 +18,15 @@ struct ContentView: View {
     @State var answerNumber = 0
     @State private var inputText = ""
     @State private var isUserResponse = true;
-    @State private var chatHistory: [Message] = [Message(text: "あなたが人生で一番一生懸命頑張ったことはなんですか？", isUserMessage: false)]
+    @State private var chatHistory: [Message] = [Message(text: "あなたが人生で一番一生懸命頑張ったことはなんですか？", isUserMessage: 2)]
     @State private var questionNumber = 0
+    @State private var hintList: Array<String> = [
+        "ヒント1",
+        "ヒント2",
+        "ヒント3",
+        "ヒント4",
+        "ヒント5",
+    ]
     @State var questionList: Array<String> = [
         "あなたが人生で一番一生懸命頑張ったことはなんですか？" ,
         "その具体的な経験について教えてください。",
@@ -63,7 +70,7 @@ struct ContentView: View {
                         ScrollView {
                             ForEach(chatHistory, id: \.self) { message in
                                 HStack {
-                                    if message.isUserMessage {
+                                    if message.isUserMessage == 1 {
                                         Spacer()
                                         Text(message.text)
                                             .padding(8)
@@ -71,7 +78,7 @@ struct ContentView: View {
                                             .background(Color.blue)
                                             .cornerRadius(8)
 
-                                    } else {
+                                    } else if message.isUserMessage == 2{
                                         Image("cymbal") // アイコンの表示
                                             .resizable()
                                             .renderingMode(.original)
@@ -82,6 +89,13 @@ struct ContentView: View {
                                             .padding(8)
                                             .foregroundColor(.white)
                                             .background(Color.green)
+                                            .cornerRadius(8)
+                                        Spacer()
+                                    } else if message.isUserMessage == 3{
+                                        Text(message.text)
+                                            .padding(8)
+                                            .foregroundColor(.white)
+                                            .background(Color.yellow)
                                             .cornerRadius(8)
                                         Spacer()
                                     }
@@ -107,9 +121,9 @@ struct ContentView: View {
                         .padding(.trailing)
                     }
                     
-                    Button("分からない", action: {
-                        
-                    })
+                    Button(action: displayHint) {
+                        Text("ヒント見る")
+                    }
                     Button("あなたの強みとは...", action: {
                         answerNumber = answerNumber + 1
                     })
@@ -177,27 +191,31 @@ struct ContentView: View {
     func sendMessage() {//メッセージがsendされたら
         if inputText.isEmpty { return }
         
-        chatHistory.append(Message(text: inputText, isUserMessage: true))
+        chatHistory.append(Message(text: inputText, isUserMessage: 1))
         questionNumber+=1
         switch questionNumber {
         case 1:
-            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: false))
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
         case 2:
-            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: false))
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
         case 3:
-            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: false))
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
         case 4:
-            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: false))
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
         case 5:
-            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: false))
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
         default:
-            print("オーバー")
+            print("これ以上質問はありません")
         }
         self.inputText = ""
         
 
         print("###sendMessage###")
         
+    }
+    
+    func displayHint(){
+        chatHistory.append(Message(text: hintList[questionNumber], isUserMessage: 3))
     }
 }
 
