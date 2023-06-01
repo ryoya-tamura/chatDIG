@@ -17,7 +17,16 @@ struct ContentView: View {
     
     @State var answerNumber = 0
     @State private var inputText = ""
-    @State private var chatHistory: [Message] = []
+    @State private var isUserResponse = true;
+    @State private var chatHistory: [Message] = [Message(text: "あなたが人生で一番一生懸命頑張ったことはなんですか？", isUserMessage: false)]
+    @State private var questionNumber = 0
+    @State var questionList: Array<String> = [
+        "あなたが人生で一番一生懸命頑張ったことはなんですか？" ,
+        "その具体的な経験について教えてください。",
+        "どのように楽しかったのですか？理由も含めて教えてください。",
+        "どのように頑張ったのですか？理由も含めて教えてください。",
+        "どのように苦しかった/辛かったのですか？理由も含めて教えてください。",
+        "その経験から得られた成果について教えてください。" ]
     
     let openAI = OpenAISwift(authToken: "")
     
@@ -61,14 +70,14 @@ struct ContentView: View {
                                             .foregroundColor(.white)
                                             .background(Color.blue)
                                             .cornerRadius(8)
-                                          
+
                                     } else {
                                         Image("cymbal") // アイコンの表示
                                             .resizable()
                                             .renderingMode(.original)
                                             .frame(width: 40, height: 40) // アイコンのサイズ
                                             .padding(.trailing, 8) // アイコンとメッセージの間の余白
-                                        
+
                                         Text(message.text)
                                             .padding(8)
                                             .foregroundColor(.white)
@@ -123,19 +132,14 @@ struct ContentView: View {
         }
     }
     
-    func sendMessage() {//メッセージがsendされたら
-        if inputText.isEmpty { return }
-        
-        chatHistory.append(Message(text: inputText, isUserMessage: true))
-
-        print("###sendMessage###")
+    func AskGPT(){
         Task{
             do {
                 var chat: [ChatMessage] = [
                     ChatMessage(role: .system, content: "あなたは学生の就職活動を支援するエキスパートです。"),
                 ]
 //
-                chat.append(ChatMessage(role: .user, content: inputText))
+//                chat.append(ChatMessage(role: .user, content: inputText))
                 
                 // gpt-4が使えない。正確にはOpenAISwiftを介してだと使えない。
                 let result = try await openAI.sendChat(
@@ -157,8 +161,7 @@ struct ContentView: View {
                     print("#################################")
                     var answer = firstChoice.message.content
                     print(answer)
-                    chatHistory.append(Message(text: answer, isUserMessage: false))
-                    self.inputText = ""
+//                    chatHistory.append(Message(text: answer, isUserMessage: false))
                     print("#################################")
                 }
                 
@@ -169,6 +172,32 @@ struct ContentView: View {
                 print(error)
             }
         }
+    }
+    
+    func sendMessage() {//メッセージがsendされたら
+        if inputText.isEmpty { return }
+        
+        chatHistory.append(Message(text: inputText, isUserMessage: true))
+        questionNumber+=1
+        switch questionNumber {
+        case 1:
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: false))
+        case 2:
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: false))
+        case 3:
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: false))
+        case 4:
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: false))
+        case 5:
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: false))
+        default:
+            print("オーバー")
+        }
+        self.inputText = ""
+        
+
+        print("###sendMessage###")
+        
     }
 }
 
