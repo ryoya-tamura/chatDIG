@@ -199,7 +199,7 @@ struct ContentView: View {
     func sendMessage() {//メッセージがsendされたら
         if inputText.isEmpty { return }
         
-        chatHistory.append(Message(text: inputText, isUserMessage: true))
+        chatHistory.append(Message(text: inputText, isUserMessage: 1))
         userAnswer.append(inputText)
         questionNumber+=1
         switch questionNumber {
