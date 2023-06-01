@@ -5,11 +5,6 @@
 //  Created by 相川佑也 on 2023/05/29.
 //
 
-// sendMessageされたら質問と回答をペアでchat_logに保存する
-// 質問の数だけ繰り返す
-//最後の質問まで終わったら、chat_logを整形する
-//整形したやつをchatgptに投げる
-
 import SwiftUI
 import OpenAISwift
 
@@ -17,7 +12,6 @@ struct Message: Hashable {
     let text: String
     let isUserMessage: Bool
 }
-
 
 struct ContentView: View {
     
@@ -30,18 +24,18 @@ struct ContentView: View {
     
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             VStack {
-                if answerNumber == 0{
+                if answerNumber == 0 {
                     Text("ChatDIGへようこそ！！")
                         .frame(height: 100)
                         .font(.title)
                         .padding(.top,200)
                     
                     Text("-経験から強みを見つけてみよう-")
-                    //.padding()
+                    
                     Spacer()
-                    Button("あなたの強みを見つける", action:{
+                    Button("あなたの強みを見つける", action: {
                         answerNumber = answerNumber + 1
                     })
                     .frame(maxWidth: .infinity)
@@ -51,12 +45,11 @@ struct ContentView: View {
                     .foregroundColor(Color.white)
                     .bold()
                     .padding(.bottom,200)
-                    
-                    
-                }else if answerNumber == 1{
+                } else if answerNumber == 1 {
                     Text("質問に答えてください。")
                         .font(.title)
                         .foregroundColor(Color.orange)
+                    
                     ScrollViewReader { scrollView in
                         ScrollView {
                             ForEach(chatHistory, id: \.self) { message in
@@ -68,7 +61,14 @@ struct ContentView: View {
                                             .foregroundColor(.white)
                                             .background(Color.blue)
                                             .cornerRadius(8)
+                                          
                                     } else {
+                                        Image("cymbal") // アイコンの表示
+                                            .resizable()
+                                            .renderingMode(.original)
+                                            .frame(width: 40, height: 40) // アイコンのサイズ
+                                            .padding(.trailing, 8) // アイコンとメッセージの間の余白
+                                        
                                         Text(message.text)
                                             .padding(8)
                                             .foregroundColor(.white)
@@ -87,6 +87,7 @@ struct ContentView: View {
                             }
                         }
                     }
+                    
                     HStack {
                         TextField("Type your message here...", text: $inputText)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -97,29 +98,30 @@ struct ContentView: View {
                         .padding(.trailing)
                     }
                     
-                    //.navigationBarTitle("質問に答えてください")
-                    .padding()
-                    Button("あなたの強みとは...", action:{
+                    Button("分からない", action: {
+                        
+                    })
+                    Button("あなたの強みとは...", action: {
                         answerNumber = answerNumber + 1
                     })
                     
-                }else {
+                } else {
                     Text("あなたの強みは...")
                         .padding()
-                    Text("分析結果ずら")//関数を代入
+                    Text("分析結果")//関数を代入
                         .padding()
-                    Button("異なる経験から分析してみる", action:{
+                    
+                    Button("異なる経験から分析してみる", action: {
                         answerNumber = answerNumber - 2
                     })
                     
                 }
                 
-                
             }
             .padding()
+
         }
     }
-   
     
     func sendMessage() {//メッセージがsendされたら
         if inputText.isEmpty { return }
@@ -168,14 +170,17 @@ struct ContentView: View {
             }
         }
     }
-        
 }
-
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
+
+
+
+
+
+
