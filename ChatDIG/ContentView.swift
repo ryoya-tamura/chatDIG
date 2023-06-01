@@ -28,6 +28,9 @@ struct ContentView: View {
         "どのように苦しかった/辛かったのですか？理由も含めて教えてください。",
         "その経験から得られた成果について教えてください。" ]
     
+    @State var prompt = ""
+    @State var userAnswer = [String]()
+    
     let openAI = OpenAISwift(authToken: "")
     
     
@@ -112,6 +115,7 @@ struct ContentView: View {
                     })
                     Button("あなたの強みとは...", action: {
                         answerNumber = answerNumber + 1
+                        AskGPT()
                     })
                     
                 } else {
@@ -138,8 +142,26 @@ struct ContentView: View {
                 var chat: [ChatMessage] = [
                     ChatMessage(role: .system, content: "あなたは学生の就職活動を支援するエキスパートです。"),
                 ]
-//
-//                chat.append(ChatMessage(role: .user, content: inputText))
+                //if userAnswer[0]&&userAnswer[1]&&userAnswer[2]&&userAnswer[3]&&userAnswer[4] {
+                let prompt = """
+                ##指示##
+                あなたは新卒採用人事のプロフェッショナルです。
+                以下の文章から、この#文章を書いた人の強みを#回答のフォーマットで3つ以上教えてください。
+                ##文章##
+                \(userAnswer[0])
+                \(userAnswer[1])
+                \(userAnswer[2])
+                \(userAnswer[3])
+                \(userAnswer[4])
+                \(userAnswer[5])
+                ##回答##
+                強み:分析力
+                理由:彼はチームの士気低下の課題を見抜き、競争意識の低下を問題として認識しました。ゆえに、チームを分析して原因を推測し、解決策を見つけるための能力を持っています。
+                """
+                print(prompt)
+                
+                //}
+                chat.append(ChatMessage(role: .user, content: prompt))
                 
                 // gpt-4が使えない。正確にはOpenAISwiftを介してだと使えない。
                 let result = try await openAI.sendChat(
@@ -178,6 +200,7 @@ struct ContentView: View {
         if inputText.isEmpty { return }
         
         chatHistory.append(Message(text: inputText, isUserMessage: true))
+        userAnswer.append(inputText)
         questionNumber+=1
         switch questionNumber {
         case 1:
