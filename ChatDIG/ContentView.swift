@@ -26,7 +26,7 @@ struct ContentView: View {
     @State private var chatHistory: [Message] = []
     
     let openAI = OpenAISwift(authToken: "")
-
+    
     
     
     var body: some View {
@@ -54,14 +54,9 @@ struct ContentView: View {
                     
                     
                 }else if answerNumber == 1{
-                    //                Text("会話画面")
-                    //                    .padding()
-                    //                Button("あなたの強みとは...", action:{
-                    //                    answerNumber = answerNumber + 1
-                    //                })
-                                    Text("質問に答えてください。")
-                                        .font(.title)
-                                        .foregroundColor(Color.orange)
+                    Text("質問に答えてください。")
+                        .font(.title)
+                        .foregroundColor(Color.orange)
                     ScrollViewReader { scrollView in
                         ScrollView {
                             ForEach(chatHistory, id: \.self) { message in
@@ -127,14 +122,20 @@ struct ContentView: View {
    
     
     func sendMessage() {//メッセージがsendされたら
+        if inputText.isEmpty { return }
+        
+        chatHistory.append(Message(text: inputText, isUserMessage: true))
+
         print("###sendMessage###")
         Task{
             do {
-                let chat: [ChatMessage] = [
+                var chat: [ChatMessage] = [
                     ChatMessage(role: .system, content: "あなたは学生の就職活動を支援するエキスパートです。"),
-                    ChatMessage(role: .user, content: "日本で起きた2020年の大きなニュースを教えてください")
                 ]
-
+//
+                chat.append(ChatMessage(role: .user, content: inputText))
+                
+                // gpt-4が使えない。正確にはOpenAISwiftを介してだと使えない。
                 let result = try await openAI.sendChat(
                     with: chat,
                     model: .chat(.chatgpt),         // optional `OpenAIModelType`
@@ -149,9 +150,16 @@ struct ContentView: View {
                     logitBias: nil                 // optional `[Int: Double]?` (see inline documentation)
                 )
                 // use result
-                print("##success##")
-                print(result)
-                print("#################################3")
+               
+                if let choices = result.choices, let firstChoice = choices.first {
+                    print("#################################")
+                    var answer = firstChoice.message.content
+                    print(answer)
+                    chatHistory.append(Message(text: answer, isUserMessage: false))
+                    self.inputText = ""
+                    print("#################################")
+                }
+                
 
             } catch {
                 // ...
@@ -159,21 +167,6 @@ struct ContentView: View {
                 print(error)
             }
         }
-        
-//        print("#########sendCompletion###########")
-//        openAI.sendCompletion(with: "Hello how are you") { result in
-//            switch result {
-//            case .success(let success):
-//                if let choices = success.choices, let firstChoice = choices.first {
-//                    print(firstChoice.text ?? "")
-//                } else {
-//                    print("##########No text was generated.##########")
-//                }
-//            case .failure(let failure):
-//                print("#######errrr##########")
-//                print(failure.localizedDescription)
-//            }
-//        }
     }
         
 }
