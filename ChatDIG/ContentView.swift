@@ -5,6 +5,11 @@
 //  Created by 相川佑也 on 2023/05/29.
 //
 
+// sendMessageされたら質問と回答をペアでchat_logに保存する
+// 質問の数だけ繰り返す
+//最後の質問まで終わったら、chat_logを整形する
+//整形したやつをchatgptに投げる
+
 import SwiftUI
 import OpenAISwift
 
@@ -13,13 +18,16 @@ struct Message: Hashable {
     let isUserMessage: Bool
 }
 
+
 struct ContentView: View {
     
     @State var answerNumber = 0
     @State private var inputText = ""
     @State private var chatHistory: [Message] = []
     
-    private var chatClient = OpenAISwift(authToken: "")
+    let openAI = OpenAISwift(authToken: "")
+
+    
     
     var body: some View {
         NavigationView{
@@ -116,25 +124,56 @@ struct ContentView: View {
             .padding()
         }
     }
+   
     
-    func sendMessage() {
-        if inputText.isEmpty { return }
-        
-        chatHistory.append(Message(text: inputText, isUserMessage: true))
-        
-        chatClient.sendCompletion(with: inputText, maxTokens: 500, completionHandler: { result in
-            switch result {
-            case .success(let model):
-                DispatchQueue.main.async {
-                    let output = model.choices?.first?.text ?? ""
-                    chatHistory.append(Message(text: output, isUserMessage: false))
-                    self.inputText = ""
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
+    func sendMessage() {//メッセージがsendされたら
+        print("###sendMessage###")
+        Task{
+            do {
+                let chat: [ChatMessage] = [
+                    ChatMessage(role: .system, content: "あなたは学生の就職活動を支援するエキスパートです。"),
+                    ChatMessage(role: .user, content: "日本で起きた2020年の大きなニュースを教えてください")
+                ]
+
+                let result = try await openAI.sendChat(
+                    with: chat,
+                    model: .chat(.chatgpt),         // optional `OpenAIModelType`
+                    user: nil,                      // optional `String?`
+                    temperature: 1,                 // optional `Double?`
+                    topProbabilityMass: 1,          // optional `Double?`
+                    choices: 1,                     // optional `Int?`
+                    stop: nil,                      // optional `[String]?`
+                    maxTokens: nil,                 // optional `Int?`
+                    presencePenalty: nil,           // optional `Double?`
+                    frequencyPenalty: nil,          // optional `Double?`
+                    logitBias: nil                 // optional `[Int: Double]?` (see inline documentation)
+                )
+                // use result
+                print("##success##")
+                print(result)
+                print("#################################3")
+
+            } catch {
+                // ...
+                print("##error##")
+                print(error)
             }
-        })
+        }
+        
+//        print("#########sendCompletion###########")
+//        openAI.sendCompletion(with: "Hello how are you") { result in
+//            switch result {
+//            case .success(let success):
+//                if let choices = success.choices, let firstChoice = choices.first {
+//                    print(firstChoice.text ?? "")
+//                } else {
+//                    print("##########No text was generated.##########")
+//                }
+//            case .failure(let failure):
+//                print("#######errrr##########")
+//                print(failure.localizedDescription)
+//            }
+//        }
     }
         
 }
