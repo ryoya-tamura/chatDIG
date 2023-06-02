@@ -37,6 +37,7 @@ struct ContentView: View {
     
     @State var prompt = ""
     @State var userAnswer = [String]()
+    @State var answer = ""
     
     let openAI = OpenAISwift(authToken: "")
     
@@ -137,7 +138,8 @@ struct ContentView: View {
                         .padding()
                     Text("分析結果")//関数を代入
                         .padding()
-                    
+                    Text(answer)//分析結果を表示 今の所画面遷移が早すぎてアンサーが画面に映らない
+                        .padding()
                     Button("異なる経験から分析してみる", action: {
                         answerNumber = answerNumber - 2
                     })
@@ -159,15 +161,15 @@ struct ContentView: View {
                 //if userAnswer[0]&&userAnswer[1]&&userAnswer[2]&&userAnswer[3]&&userAnswer[4] {
                 let prompt = """
                 ##指示##
-                あなたは新卒採用人事のプロフェッショナルです。
+                あなたは学生の就職活動を支援するエキスパートです。
                 以下の文章から、この#文章を書いた人の強みを#回答のフォーマットで3つ以上教えてください。
                 ##文章##
-                \(userAnswer[0])
-                \(userAnswer[1])
-                \(userAnswer[2])
-                \(userAnswer[3])
-                \(userAnswer[4])
-                \(userAnswer[5])
+                -\(userAnswer[0])
+                -\(userAnswer[1])
+                -\(userAnswer[2])
+                -\(userAnswer[3])
+                -\(userAnswer[4])
+                -\(userAnswer[5])
                 ##回答##
                 強み:分析力
                 理由:彼はチームの士気低下の課題を見抜き、競争意識の低下を問題として認識しました。ゆえに、チームを分析して原因を推測し、解決策を見つけるための能力を持っています。
@@ -250,30 +252,12 @@ struct ContentView_Previews: PreviewProvider {
 
 /*
  
- 
- print(chatHistory[1])
- 
- let prompt = "##指示##¥n
- あなたは新卒採用人事のプロフェッショナルです。¥n
- 以下の文章から、この#文章を書いた人の強みを#回答のフォーマットで3つ以上教えてください。¥n
- ##文章## -サッカーを頑張った。¥n
- ¥n
- ##回答##¥n
- 強み:分析力¥n
- 理由:彼はチームの士気低下の課題を見抜き、競争意識の低下を問題として認識しました。ゆえに、チームを分析して原因を推測し、解決策を見つけるための能力を持っています。¥n
- "
- 
- chat.append(ChatMessage(role: .user, content: prompt))
- 
- 
  //message.contentに渡す
  //prompt
  ##指示##
  あなたは新卒採用人事のプロフェッショナルです。
  以下の文章から、この#文章を書いた人の強みを#回答のフォーマットで3つ以上教えてください。
- ##文章## -サッカーを頑張った。
- 
- print(chatHistory)
+ ##文章##
  
  ##回答##
  強み:分析力
