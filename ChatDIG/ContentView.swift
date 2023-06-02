@@ -26,6 +26,8 @@ struct ContentView: View {
         "ヒント3",
         "ヒント4",
         "ヒント5",
+        "ヒント6",
+        "ヒント7"
     ]
     @State var questionList: Array<String> = [
         "あなたが人生で一番一生懸命頑張ったことはなんですか？" ,
@@ -33,10 +35,13 @@ struct ContentView: View {
         "どのように楽しかったのですか？理由も含めて教えてください。",
         "どのように頑張ったのですか？理由も含めて教えてください。",
         "どのように苦しかった/辛かったのですか？理由も含めて教えてください。",
-        "その経験から得られた成果について教えてください。" ]
+        "その辛かったこと・苦しかったことをどのようにして乗り越えましたか？",
+        "これで最後に質問です。あなたが一生懸命頑張った経験から、得られた成果について教えてください。" ]
     
     @State var prompt = ""
-    @State var userAnswer = [String]()
+    @State var userAnswer: Array<String> = [
+        "A","B","C","D","E","F","G"
+        ]
     @State var answer: String = "お待ちください"
     
     let openAI = OpenAISwift(authToken: "")
@@ -134,16 +139,27 @@ struct ContentView: View {
                     })
                     
                 } else {
-                    Text("あなたの強みは...")
-                        .padding()
-                    Text("分析結果")//関数を代入
-                        .padding()
-                    Text(answer)//分析結果を表示
-                        .padding()
-
-                    Button("異なる経験から分析してみる", action: {
-                        answerNumber = answerNumber - 2
-                    })
+//                ZStack{
+//                        Image("dart")
+                    
+                        Text("あなたの強みは...")
+                            .padding()
+                        Text("分析結果")//関数を代入
+                            .padding()
+                        Text(answer)//分析結果を表示
+                            .padding()
+                        
+                        Button(action: {
+                            answerNumber = answerNumber - 2
+                        }) {
+                            Text("異なる経験から分析してみる")
+                                .font(.system(size: 22, weight: .black, design: .default))
+                                .frame(width: 320, height: 64)
+                                .foregroundColor(Color(.black))
+                                .background(Color(.green))
+                                .cornerRadius(12)
+                        }
+//                    }
                 }
             }
             .padding()
@@ -169,6 +185,7 @@ struct ContentView: View {
                 -\(userAnswer[3])
                 -\(userAnswer[4])
                 -\(userAnswer[5])
+                -\(userAnswer[6])
                 ##回答例##
                 強み:分析力
                 理由:彼はチームの士気低下の課題を見抜き、競争意識の低下を問題として認識しました。ゆえに、チームを分析して原因を推測し、解決策を見つけるための能力を持っています。
@@ -218,7 +235,8 @@ struct ContentView: View {
         if inputText.isEmpty { return }
         
         chatHistory.append(Message(text: inputText, isUserMessage: 1))
-        userAnswer.append(inputText)
+        userAnswer[questionNumber] = inputText
+        //userAnswer.append(inputText)
         questionNumber+=1
         switch questionNumber {
         case 1:
@@ -230,6 +248,10 @@ struct ContentView: View {
         case 4:
             chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
         case 5:
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
+        case 6:
+            chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
+        case 7:
             chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
         default:
             print("これ以上質問はありません")
@@ -249,6 +271,10 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 /*
+ 
+ debag
+ 全部打ち終わってヒント押すとエラーでる
+ 
  
  //message.contentに渡す
  //prompt
