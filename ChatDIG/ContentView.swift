@@ -137,9 +137,7 @@ struct ContentView: View {
                     Button("異なる経験から分析してみる", action: {
                         answerNumber = answerNumber - 2
                     })
-                    
                 }
-                
             }
             .padding()
 
@@ -169,7 +167,6 @@ struct ContentView: View {
                     frequencyPenalty: nil,          // optional `Double?`
                     logitBias: nil                 // optional `[Int: Double]?` (see inline documentation)
                 )
-                // use result
                
                 if let choices = result.choices, let firstChoice = choices.first {
                     print("#################################")
@@ -178,8 +175,6 @@ struct ContentView: View {
 //                    chatHistory.append(Message(text: answer, isUserMessage: false))
                     print("#################################")
                 }
-                
-
             } catch {
                 // ...
                 print("##error##")
@@ -188,7 +183,7 @@ struct ContentView: View {
         }
     }
     
-    func sendMessage() {//メッセージがsendされたら
+    func sendMessage() {
         if inputText.isEmpty { return }
         
         chatHistory.append(Message(text: inputText, isUserMessage: 1))
@@ -208,10 +203,6 @@ struct ContentView: View {
             print("これ以上質問はありません")
         }
         self.inputText = ""
-        
-
-        print("###sendMessage###")
-        
     }
     
     func displayHint(){
