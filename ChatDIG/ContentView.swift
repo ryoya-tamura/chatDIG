@@ -37,7 +37,7 @@ struct ContentView: View {
     
     @State var prompt = ""
     @State var userAnswer = [String]()
-    @State var answer = ""
+    @State var answer: String = "お待ちください"
     
     let openAI = OpenAISwift(authToken: "")
     
@@ -138,8 +138,9 @@ struct ContentView: View {
                         .padding()
                     Text("分析結果")//関数を代入
                         .padding()
-                    Text(answer)//分析結果を表示 今の所画面遷移が早すぎてアンサーが画面に映らない
+                    Text(answer)//分析結果を表示
                         .padding()
+
                     Button("異なる経験から分析してみる", action: {
                         answerNumber = answerNumber - 2
                     })
@@ -161,8 +162,8 @@ struct ContentView: View {
                 //if userAnswer[0]&&userAnswer[1]&&userAnswer[2]&&userAnswer[3]&&userAnswer[4] {
                 let prompt = """
                 ##指示##
-                あなたは学生の就職活動を支援するエキスパートです。
-                以下の文章から、この#文章を書いた人の強みを#回答のフォーマットで3つ以上教えてください。
+                あなたは新卒採用人事のプロフェッショナルです。
+                以下の文章から、この#文章を書いた人の強みを分析して#回答例を参考に#形式のフォーマットで1つ教えてください。
                 ##文章##
                 -\(userAnswer[0])
                 -\(userAnswer[1])
@@ -170,9 +171,15 @@ struct ContentView: View {
                 -\(userAnswer[3])
                 -\(userAnswer[4])
                 -\(userAnswer[5])
-                ##回答##
+                ##回答例##
                 強み:分析力
                 理由:彼はチームの士気低下の課題を見抜き、競争意識の低下を問題として認識しました。ゆえに、チームを分析して原因を推測し、解決策を見つけるための能力を持っています。
+                強み: 問題解決能力
+                理由:彼はチームの士気低下という問題に直面しましたが、それを分析し、競争意識の低下を原因と特定しました。その後、解決策としてMVP発表活動を導入し、チーム内の競争意識を高めました。彼の問題解決能力によって、具体的な目標に向かって効果的な対策を講じることができました。
+                
+                ##形式##
+                強み：
+                理由：
                 """
                 print(prompt)
                 
@@ -197,7 +204,7 @@ struct ContentView: View {
                
                 if let choices = result.choices, let firstChoice = choices.first {
                     print("#################################")
-                    var answer = firstChoice.message.content
+                    answer = firstChoice.message.content
                     print(answer)
 //                    chatHistory.append(Message(text: answer, isUserMessage: false))
                     print("#################################")
