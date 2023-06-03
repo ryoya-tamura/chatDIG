@@ -93,6 +93,7 @@ struct ContentView: View {
     @State private var isUserResponse = true;
     @State private var chatHistory: [Message] = [Message(text: "あなたが人生で一番一生懸命頑張ったことはなんですか？", isUserMessage: 2)]
     @State private var questionNumber = 0
+    @State private var chat: [ChatMessage] = []
     @State private var hintList: Array<String> = [
         "ヒント1",
         "ヒント2",
@@ -133,37 +134,62 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+
                 
-                if answerNumber == 0 {
-                    Text("ChatDIGへようこそ！！")
-                        .frame(height: 100)
-                        .font(.title)
-                        .padding(.top,200)
+                VStack {
                     
-                    Text("-経験から強みを見つけてみよう-")
-                    
-                    Spacer()
-                    Button("あなたの強みを見つける", action: {
-                        answerNumber = answerNumber + 1
-                    })
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50.0)
-                    .font(.headline)
-                    .background(Color(hue: 0.115, saturation: 0.852, brightness: 0.883))
-                    .foregroundColor(Color.white)
-                    .bold()
-                    .padding(.bottom,200)
-                    
-                    /*
-                    //配列等初期化
-                    .onAppear{
-                        var userAnswer = Array (repeating : "XXX", count : 7)
+                    if answerNumber == 0 {
+                        
+                        ZStack{
+                            Image("dart start") // 背景画像
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .edgesIgnoringSafeArea(.all)
+                            VStack{
+                                VStack(spacing:0){
+                                    Text("ChatDIGとは？")
+                                        .font(.title)
+                                        .bold()
+                                        .padding(.bottom,20)
+                                    Text("ユーザの過去からの経験から強みを特定するAIチャットアプリです。従来の自己分析手法に変わる新しいアプローチで、客観的な視点でユーザの強みを明確にします。")
+                                        
+                                }
+                                .frame(width: 350,height: 200)
+                                .background(Color.white)
+                                .cornerRadius(12)
+                                .padding(.top,100)
+                                    
+                                Text("君も潜ってみる？")
+                                    .frame(width: 150,height: 35)
+                                    .background(Color.white)
+                                    .cornerRadius(12)
+                                    .padding([.top, .leading],70)
+                                
+                                Spacer()
+                                Button("あなたの強みを見つける", action: {
+                                    answerNumber = answerNumber + 1
+                                })
+                                .font(.system(size: 22, weight: .black, design: .default))
+                                .frame(width: 320, height: 64)
+                                .foregroundColor(Color(.black))
+                                .background(Color(.green))
+                                .cornerRadius(12)
+                                .padding(.bottom,200)
+                                
+                                /*
+                                 //配列等初期化
+                                 .onAppear{
+                                 var userAnswer = Array (repeating : "XXX", count : 7)
+                                 }
+                                 */
+                            }
+                            
+                            
                     }
-                    */
-                    
-                    
-                } else if answerNumber == 1 {
+                        .frame(width: 400, height: 200, alignment: .center)//frame ireru
+                
+                }else if answerNumber == 1 {
                     
                     ZStack() {
                                 Image("dart chat view") // 背景画像
@@ -321,7 +347,7 @@ struct ContentView: View {
                                     .frame(width:380, height: 300)  // フレームサイズ指定
                                 
                                 Text(answer)//分析結果を表示
-                                //.frame(width: 400, height: 200, alignment: .center)
+                                .frame(width: 400, height: 200, alignment: .leading)
                                 //.border(Color.black, width: 1)
                                 //Spacer()
                                 //.padding()
@@ -386,17 +412,15 @@ struct ContentView: View {
         progress = 0.0
         answer = "お待ちください"
         userAnswer = []
+        questionNumber = 0
     }
 
     
     func AskGPT(){
         Task{
             do {
-                var chat: [ChatMessage] = [
-                    ChatMessage(role: .system, content: "あなたは学生の就職活動を支援するエキスパートです。"),
-                ]
                 if userAnswer.count >= 7 {
-                    let prompt = """
+                    prompt = """
                     ##指示##
                     あなたは新卒採用人事のプロフェッショナルです。
                     以下の文章から、この#文章を書いた人の強みを分析して#回答例を参考に#形式のフォーマットで1つ教えてください。
