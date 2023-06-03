@@ -68,6 +68,23 @@ struct BarProgressStyle: ProgressViewStyle {
     }
 }
 
+struct RoundedCorner: Shape {
+
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
+    }
+}
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
+    }
+}
+
 
 struct ContentView: View {
     
@@ -104,6 +121,11 @@ struct ContentView: View {
     @State var userAnswer: Array<String> = []
     @State var answer: String = "お待ちください"
     @State private var progress = 0.0
+    
+    @State var topLeft: CGFloat = 0
+    @State var topRight: CGFloat = 0
+    @State var bottomLeft: CGFloat = 0
+    @State var bottomRight: CGFloat = 0
     
     let openAI = OpenAISwift(authToken: "")
     
@@ -153,7 +175,7 @@ struct ContentView: View {
                                 VStack {
                                     //Spacer()
                                     //Text("")
-                                    //    .font()
+                                    //.font()
                                     Text("質問に答えてください。")
                                         .font(.title)
                                         .foregroundColor(Color.orange)
@@ -173,29 +195,35 @@ struct ContentView: View {
                                                                 .padding(8)
                                                                 .foregroundColor(.white)
                                                                 .background(Color.blue)
-                                                                .cornerRadius(8)
+                                                                .cornerRadius(8, corners: [.topLeft, .bottomLeft, .bottomRight])
+                                                            
                                                         } else if message.isUserMessage == 2 {
-                                                            //VStack{
-                                                                //HStack{
+                                                            //user massage
                                                                     Image("Icon DIG mogra")
                                                                         .resizable()
                                                                         //.renderingMode(.original)
                                                                         .frame(width: 40, height: 40, alignment: .topLeading)
-                                                                    //.padding()
-                                                                //}
+                                                                        //.padding(.left, 2)
+                                                                    
                                                                 Text(message.text)
                                                                     .padding(8)
                                                                     .foregroundColor(.white)
                                                                     .background(Color.green)
-                                                                    .cornerRadius(8)
-                                                                Spacer()
-                                                            //}
+                                                                    .cornerRadius(8, corners: [.topRight, .bottomLeft, .bottomRight])
+                                                                    Spacer()
+                                                            
                                                         } else if message.isUserMessage == 3 {
+                                                            //hint
+                                                            Image("Icon DIG mogra")
+                                                                .resizable()
+                                                                //.renderingMode(.original)
+                                                                .frame(width: 40, height: 40, alignment: .topLeading)
+                                                                //.padding(.left, 2)
                                                             Text(message.text)
                                                                 .padding(8)
                                                                 .foregroundColor(.white)
                                                                 .background(Color.yellow)
-                                                                .cornerRadius(8)
+                                                                .cornerRadius(8, corners: [.topRight, .bottomLeft, .bottomRight])
                                                             Spacer()
                                                         }
                                                         
@@ -213,6 +241,7 @@ struct ContentView: View {
                                             
                                         }
                                         .border(Color.blue)
+                                        .padding(.leading)
                                                 
                                             ProgressView(value: progress)
                                                 .progressViewStyle(BarProgressStyle())
