@@ -30,7 +30,7 @@ struct ActivityIndicator: UIViewRepresentable {
 struct BarProgressStyle: ProgressViewStyle {
  
     var height: Double = 30.0
-    var width: Double = 500.0
+    var width: Double = 508.0
     var labelFontStyle: Font = .body
  
     func makeBody(configuration: Configuration) -> some View {
@@ -49,8 +49,10 @@ struct BarProgressStyle: ProgressViewStyle {
                     .frame(height: height)
                     .frame(width: width)
                     .overlay(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 10.0)
+                        //RoundedRectangle(cornerRadius: 10.0)
+                        Rectangle()
                             .fill(Color(uiColor: .systemGray5))
+                            .cornerRadius(10, corners: [.topRight, .bottomRight])
                             .frame(width: width * progress)
                             .overlay(alignment: .leading) {
                                 if let currentValueLabel = configuration.currentValueLabel {
@@ -159,11 +161,12 @@ struct ContentView: View {
                                 .background(Color.white)
                                 .cornerRadius(12)
                                 .padding(.top,100)
-                                    
+                                
+                                
                                 Text("君も潜ってみる？")
                                     .frame(width: 150,height: 35)
                                     .background(Color.white)
-                                    .cornerRadius(12)
+                                    .cornerRadius(10, corners: [.topLeft, .topRight, .bottomRight])
                                     .padding([.top, .leading],70)
                                 
                                 Spacer()
@@ -173,7 +176,7 @@ struct ContentView: View {
                                 .font(.system(size: 22, weight: .black, design: .default))
                                 .frame(width: 320, height: 64)
                                 .foregroundColor(Color(.black))
-                                .background(Color(.green))
+                                .background(Color(UIColor(red: 225/255, green: 255/255, blue: 103/255, alpha: 1)))
                                 .cornerRadius(12)
                                 .padding(.bottom,200)
                                 
@@ -202,12 +205,50 @@ struct ContentView: View {
                                     //Spacer()
                                     //Text("")
                                     //.font()
-                                    Text("質問に答えてください。")
-                                        .font(.title)
-                                        .foregroundColor(Color.orange)
-                                        .border(Color.blue)
-                                        //.frame(width: 400, height: 200, alignment: .top)
-                                        .padding(.top, 30.0)
+                                    
+                                    ZStack {
+                                        Text("質問に答えてください。")
+                                            .font(.title)
+                                            .foregroundColor(Color(UIColor(red: 176/255, green: 242/255, blue: 238/255, alpha: 1)))
+                                            //.border(Color.blue)
+                                            //.frame(width: 400, height: 200, alignment: .top)
+                                            .padding(.top, 30.0)
+                                        
+                                        HStack{
+                                            Button(action: {
+                                                displayHint()
+                                                //progress += 0.2
+                                            }){
+                                                Text("ヒント")
+                                                    .font(.system(size: 16, weight: .black, design: .default))
+                                                    .frame(width: 120, height: 100)
+                                                    .foregroundColor(Color(.black))
+                                                    .background(Image("cloud"))
+                                                    .cornerRadius(12)
+                                            }
+                                            //.frame(width: 100 , height: 30, alignment: .center)
+                                            //.border(Color.black)
+                                            .padding(.trailing, 250)
+                                            
+                                            /*
+                                            Button( action: {
+                                                //answerNumber = answerNumber + 1
+                                                //progress += 0.2
+                                                //AskGPT()
+                                            }){
+                                                Text("あなたの強みとは...")
+                                                    .font(.system(size: 16, weight: .black, design: .default))
+                                                    .frame(width: 180, height: 32)
+                                                    .foregroundColor(Color(.black))
+                                                    .background(Color(.white))
+                                                    .cornerRadius(12)
+                                            }
+                                            //.frame(width: 200 , height: 30, alignment: .center)
+                                            //.border(Color.blue)
+                                            */
+                                        }
+                                        
+                                    }
                                     
                                     HStack{
                                         ScrollViewReader { scrollView in
@@ -266,7 +307,7 @@ struct ContentView: View {
                                             }
                                             
                                         }
-                                        .border(Color.blue)
+                                        //.border(Color.blue)
                                         .padding(.leading)
                                                 
                                             ProgressView(value: progress)
@@ -274,38 +315,50 @@ struct ContentView: View {
                                                 .frame(width: 20 , height: 30, alignment: .leading)
                                                 //.border(Color.blue)
                                                 .rotationEffect(Angle(degrees: 90))
-                                                .padding(.bottom, 538.0)//bar の位置
+                                                .padding(.bottom, 579.0)//bar の位置
                                                 .padding()
-                                                .border(Color.blue)
+                                                //.border(Color.blue)
                                     }
                                     .frame(width: 400, height: 600, alignment: .center)
-                                    .border(Color.black)
+                                    //.border(Color.black)
                                     
                                     
 
                                     HStack {
-                                        TextField("Type your message here...", text: $inputText)
+                                        TextField("Type your message here...", text: $inputText) //, axis: .vertical
                                             .textFieldStyle(RoundedBorderTextFieldStyle())
                                             .keyboardType(.default)
                                             .padding(.horizontal)
-                                        Button("Send",action: {
+                                        Button(action: {
                                             sendMessage()
-                                        })
+                                        }){
+                                            Image("push")
+                                                .resizable()
+                                                .frame(width: 40, height: 38)
+                                        }
                                         .padding(.trailing)
                                     }
-                                    .border(Color.blue)
+                                    //.border(Color.blue)
 
+                                    /*
                                     Button("ヒント見る", action: {
                                         displayHint()
                                         //progress += 0.2
                                     })
-                                    Button("あなたの強みとは...", action: {
-                                        answerNumber = answerNumber + 1
-                                        //progress += 0.2
-                                        AskGPT()
-                                    })
-                                    //.frame(width: 200 , height: 30, alignment: .center)
-                                    .border(Color.blue)
+                                     */
+                                     Button( action: {
+                                         answerNumber = answerNumber + 1
+                                         //progress += 0.2
+                                         AskGPT()
+                                     }){
+                                         Text("あなたの強みとは...")
+                                             .font(.system(size: 16, weight: .black, design: .default))
+                                             .frame(width: 180, height: 32)
+                                             .foregroundColor(Color(.black))
+                                             .background(Color(UIColor(red: 225/255, green: 255/255, blue: 103/255, alpha: 1)))
+                                             .cornerRadius(12)
+                                     }
+                                    
 
                                     
                                 }
@@ -347,7 +400,7 @@ struct ContentView: View {
                                     .frame(width:380, height: 300)  // フレームサイズ指定
                                 
                                 Text(answer)//分析結果を表示
-                                .frame(width: 400, height: 200, alignment: .leading)
+                                .frame(width: 400, height: 200)
                                 //.border(Color.black, width: 1)
                                 //Spacer()
                                 //.padding()
@@ -367,7 +420,7 @@ struct ContentView: View {
                                     .font(.system(size: 22, weight: .black, design: .default))
                                     .frame(width: 320, height: 64)
                                     .foregroundColor(Color(.black))
-                                    .background(Color(.green))
+                                    .background(Color(UIColor(red: 225/255, green: 255/255, blue: 103/255, alpha: 1)))
                                     .cornerRadius(12)
                             }
                             .frame(width: 400, height: 300, alignment: .center)
