@@ -260,8 +260,8 @@ struct ContentView: View {
                                                             Spacer()
                                                             Text(message.text)
                                                                 .padding(8)
-                                                                .foregroundColor(.white)
-                                                                .background(Color.blue)
+                                                                .foregroundColor(.black)
+                                                                .background(Color(UIColor(red: 255/255, green: 187/255, blue: 107/255, alpha: 1)))
                                                                 .cornerRadius(8, corners: [.topLeft, .bottomLeft, .bottomRight])
                                                             
                                                         } else if message.isUserMessage == 2 {
@@ -274,8 +274,8 @@ struct ContentView: View {
                                                                     
                                                                 Text(message.text)
                                                                     .padding(8)
-                                                                    .foregroundColor(.white)
-                                                                    .background(Color.green)
+                                                                    .foregroundColor(.black)
+                                                                    .background(Color.white)
                                                                     .cornerRadius(8, corners: [.topRight, .bottomLeft, .bottomRight])
                                                                     Spacer()
                                                             
@@ -288,7 +288,7 @@ struct ContentView: View {
                                                                 //.padding(.left, 2)
                                                             Text(message.text)
                                                                 .padding(8)
-                                                                .foregroundColor(.white)
+                                                                .foregroundColor(.black)
                                                                 .background(Color.yellow)
                                                                 .cornerRadius(8, corners: [.topRight, .bottomLeft, .bottomRight])
                                                             Spacer()
