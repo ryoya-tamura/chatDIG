@@ -20,6 +20,7 @@ struct ActivityIndicator: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        uiView.color = UIColor.green
         uiView.startAnimating()
     }
 }
@@ -83,7 +84,7 @@ struct ContentView: View {
         "ヒント5",
         "ヒント6",
         "ヒント7",
-        "質問は以上です"
+        "質問は以上です。結果出力画面に進んでください。"
     ]
     
     @State var questionList: Array<String> = [
@@ -97,9 +98,10 @@ struct ContentView: View {
         "お疲れ様でした。質問は以上です。結果出力の画面に進んでください。"]
     
     @State var prompt = ""
-    @State var userAnswer: Array<String> = [
-        "A","B","C","D","E","F","G"
-        ]
+//    @State var userAnswer: Array<String> = [
+//        "A","B","C","D","E","F","G"
+//        ]
+    @State var userAnswer: Array<String> = []
     @State var answer: String = "お待ちください"
     @State private var progress = 0.0
     
@@ -271,8 +273,8 @@ struct ContentView: View {
                         
                         VStack{
                             Text("あなたの強みは...")
-                            .font(.title)
-                            .frame(width: 400, height: 20, alignment: .top)
+                                .font(.title)
+                                .frame(width: 400, height: 20, alignment: .top)
                             //.border(Color.black, width: 1)
                             .padding(.top, 60.0)
 
@@ -290,8 +292,8 @@ struct ContentView: View {
                                     .frame(width:380, height: 300)  // フレームサイズ指定
                                 
                                 Text(answer)//分析結果を表示
-                                    //.frame(width: 400, height: 200, alignment: .center)
-                                    //.border(Color.black, width: 1)
+                                //.frame(width: 400, height: 200, alignment: .center)
+                                //.border(Color.black, width: 1)
                                 //Spacer()
                                 //.padding()
                                 
@@ -300,11 +302,13 @@ struct ContentView: View {
                             }
                             .frame(width: 400, height: 200, alignment: .center)
                             Spacer()
-                                
+                            
+                            
                             Button(action: {
-                                answerNumber = answerNumber - 2
-                            }) {
-                                Text("異なる経験から分析してみる")
+                                answerNumber -= 2
+                                Initialize()
+                            })
+                            { Text("異なる経験から分析してみる")
                                     .font(.system(size: 22, weight: .black, design: .default))
                                     .frame(width: 320, height: 64)
                                     .foregroundColor(Color(.black))
@@ -345,6 +349,14 @@ struct ContentView: View {
             .padding()
 
         }
+    }
+    
+    
+    func Initialize(){
+        chatHistory = [Message(text: "あなたが人生で一番一生懸命頑張ったことはなんですか？", isUserMessage: 2)]
+        progress = 0.0
+        answer = "お待ちください"
+        userAnswer = []
     }
 
     
@@ -416,8 +428,8 @@ struct ContentView: View {
         if inputText.isEmpty { return }
         
         chatHistory.append(Message(text: inputText, isUserMessage: 1))
-        userAnswer[questionNumber] = inputText
-        //userAnswer.append(inputText)
+//        userAnswer[questionNumber] = inputText
+        userAnswer.append(inputText)
         questionNumber+=1
         switch questionNumber {
         case 1:
