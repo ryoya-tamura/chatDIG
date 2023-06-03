@@ -24,6 +24,8 @@ struct ActivityIndicator: UIViewRepresentable {
     }
 }
 
+
+
 struct BarProgressStyle: ProgressViewStyle {
  
     var height: Double = 30.0
@@ -42,7 +44,7 @@ struct BarProgressStyle: ProgressViewStyle {
                     .font(labelFontStyle)
  
                 RoundedRectangle(cornerRadius: 10.0)
-                    .fill(Color(uiColor: .brown))
+                    .fill(Color(UIColor(red: 169/255, green: 117/255, blue: 80/255, alpha: 1)))
                     .frame(height: height)
                     .frame(width: width)
                     .overlay(alignment: .leading) {
@@ -80,7 +82,8 @@ struct ContentView: View {
         "ヒント4",
         "ヒント5",
         "ヒント6",
-        "ヒント7"
+        "ヒント7",
+        "質問は以上です"
     ]
     
     @State var questionList: Array<String> = [
@@ -138,15 +141,24 @@ struct ContentView: View {
                     
                 } else if answerNumber == 1 {
                     
-                    ZStack {
-                                Image("dart") // 背景画像
+                    ZStack() {
+                                Image("dart chat view") // 背景画像
                                     .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                                     .edgesIgnoringSafeArea(.all)
-                                
+                                    
                                 VStack {
+                                    //Spacer()
+                                    //Text("")
+                                    //    .font()
                                     Text("質問に答えてください。")
                                         .font(.title)
                                         .foregroundColor(Color.orange)
+                                        .border(Color.blue)
+                                        //.frame(width: 400, height: 200, alignment: .top)
+                                        .padding(.top, 30.0)
+                                    
                                     HStack{
                                         ScrollViewReader { scrollView in
                                             ScrollView {
@@ -161,18 +173,21 @@ struct ContentView: View {
                                                                 .background(Color.blue)
                                                                 .cornerRadius(8)
                                                         } else if message.isUserMessage == 2 {
-                                                            Image("cymbal")
-                                                                .resizable()
-                                                                .renderingMode(.original)
-                                                                .frame(width: 40, height: 40)
-                                                                .padding(.leading)
-
-                                                            Text(message.text)
-                                                                .padding(8)
-                                                                .foregroundColor(.white)
-                                                                .background(Color.green)
-                                                                .cornerRadius(8)
-                                                            Spacer()
+                                                            //VStack{
+                                                                //HStack{
+                                                                    Image("Icon DIG mogra")
+                                                                        .resizable()
+                                                                        //.renderingMode(.original)
+                                                                        .frame(width: 40, height: 40, alignment: .topLeading)
+                                                                    //.padding()
+                                                                //}
+                                                                Text(message.text)
+                                                                    .padding(8)
+                                                                    .foregroundColor(.white)
+                                                                    .background(Color.green)
+                                                                    .cornerRadius(8)
+                                                                Spacer()
+                                                            //}
                                                         } else if message.isUserMessage == 3 {
                                                             Text(message.text)
                                                                 .padding(8)
@@ -195,33 +210,33 @@ struct ContentView: View {
                                             }
                                             
                                         }
-                                        //HStack {
-                                            //Spacer()
+                                        .border(Color.blue)
                                                 
                                             ProgressView(value: progress)
                                                 .progressViewStyle(BarProgressStyle())
                                                 .frame(width: 20 , height: 30, alignment: .leading)
-                                                .border(Color.blue)
+                                                //.border(Color.blue)
                                                 .rotationEffect(Angle(degrees: 90))
-                                                .padding(.bottom, 500.0)
+                                                .padding(.bottom, 538.0)//bar の位置
                                                 .padding()
-                                            //Spacer()
-                                        //}
-                                        
+                                                .border(Color.blue)
                                     }
-                                    
+                                    .frame(width: 400, height: 600, alignment: .center)
+                                    .border(Color.black)
                                     
                                     
 
                                     HStack {
                                         TextField("Type your message here...", text: $inputText)
                                             .textFieldStyle(RoundedBorderTextFieldStyle())
+                                            .keyboardType(.default)
                                             .padding(.horizontal)
                                         Button("Send",action: {
                                             sendMessage()
                                         })
                                         .padding(.trailing)
                                     }
+                                    .border(Color.blue)
 
                                     Button("ヒント見る", action: {
                                         displayHint()
@@ -232,16 +247,19 @@ struct ContentView: View {
                                         //progress += 0.2
                                         AskGPT()
                                     })
+                                    //.frame(width: 200 , height: 30, alignment: .center)
+                                    .border(Color.blue)
 
                                     
                                 }
 
                                 
                             }
+                            .frame(width: 400, height: 200, alignment: .center)
                         
                     
             } else {
-                    ZStack{
+                    ZStack(){
                         
                         Image("dart")
                             .resizable()
@@ -256,18 +274,20 @@ struct ContentView: View {
                             .font(.title)
                             .frame(width: 400, height: 20, alignment: .top)
                             //.border(Color.black, width: 1)
-                            //.padding()
-                            Text("分析結果")//関数を代入
+                            .padding(.top, 60.0)
+
+                            Text("")//関数を代入
                             //.frame(width: 400, height: 200, alignment: .center)
                             //.border(Color.black, width: 1)
-                            .padding()
+                                .padding(.vertical, 20.0)
+                            //Spacer()
                             
                             ZStack{
                                 
                                 // 四角形の描画
-                                Rectangle()
+                                RoundedRectangle(cornerRadius: 10.0)
                                     .fill(Color.white)               // 図形の塗りつぶしに使うViewを指定
-                                    .frame(width:380, height: 200)  // フレームサイズ指定
+                                    .frame(width:380, height: 300)  // フレームサイズ指定
                                 
                                 Text(answer)//分析結果を表示
                                     //.frame(width: 400, height: 200, alignment: .center)
@@ -275,6 +295,7 @@ struct ContentView: View {
                                 //Spacer()
                                 //.padding()
                                 
+                                //アンサー長文で帰ってくるとレイアウト崩れるね
 
                             }
                             .frame(width: 400, height: 200, alignment: .center)
@@ -290,10 +311,10 @@ struct ContentView: View {
                                     .background(Color(.green))
                                     .cornerRadius(12)
                             }
-                            .frame(width: 400, height: 200, alignment: .center)
+                            .frame(width: 400, height: 300, alignment: .center)
                             //.border(Color.black, width: 1)
                         }
-                        .padding()
+                        //.padding()
                         if answer.hasSuffix("お待ちください"){//Suf後ろ Pre頭
                             Color.black.opacity(0.3)
                                 .edgesIgnoringSafeArea(.all)
@@ -317,7 +338,9 @@ struct ContentView: View {
                         }
                         
                     }
+                    .frame(width: 400, height: 200, alignment: .center)
                 }
+                
             }
             .padding()
 
