@@ -13,6 +13,17 @@ struct Message: Hashable {
     let isUserMessage: Int
 }
 
+struct ActivityIndicator: UIViewRepresentable {
+    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
+        UIActivityIndicatorView(style: .large)
+    }
+
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        uiView.startAnimating()
+    }
+}
+
+
 struct ContentView: View {
     
     @State var answerNumber = 0
@@ -52,6 +63,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
+                
                 if answerNumber == 0 {
                     Text("ChatDIGへようこそ！！")
                         .frame(height: 100)
@@ -71,7 +83,17 @@ struct ContentView: View {
                     .foregroundColor(Color.white)
                     .bold()
                     .padding(.bottom,200)
+                    
+                    /*
+                    //配列等初期化
+                    .onAppear{
+                        var userAnswer = Array (repeating : "XXX", count : 7)
+                    }
+                    */
+                    
+                    
                 } else if answerNumber == 1 {
+                    
                     Text("質問に答えてください。")
                         .font(.title)
                         .foregroundColor(Color.orange)
@@ -140,27 +162,82 @@ struct ContentView: View {
                     })
                     
                 } else {
-//                ZStack{
-//                        Image("dart")
-                    
-                        Text("あなたの強みは...")
-                            .padding()
-                        Text("分析結果")//関数を代入
-                            .padding()
-                        Text(answer)//分析結果を表示
-                            .padding()
+                    ZStack{
                         
-                        Button(action: {
-                            answerNumber = answerNumber - 2
-                        }) {
-                            Text("異なる経験から分析してみる")
-                                .font(.system(size: 22, weight: .black, design: .default))
-                                .frame(width: 320, height: 64)
-                                .foregroundColor(Color(.black))
-                                .background(Color(.green))
-                                .cornerRadius(12)
+                        Image("dart")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .edgesIgnoringSafeArea(.all)
+                        //多分上下が小さい画像を使ってる
+                        
+                        
+                        VStack{
+                            Text("あなたの強みは...")
+                            .font(.title)
+                            .frame(width: 400, height: 20, alignment: .top)
+                            //.border(Color.black, width: 1)
+                            //.padding()
+                            Text("分析結果")//関数を代入
+                            //.frame(width: 400, height: 200, alignment: .center)
+                            //.border(Color.black, width: 1)
+                            .padding()
+                            
+                            ZStack{
+                                
+                                // 四角形の描画
+                                Rectangle()
+                                    .fill(Color.white)               // 図形の塗りつぶしに使うViewを指定
+                                    .frame(width:380, height: 200)  // フレームサイズ指定
+                                
+                                Text(answer)//分析結果を表示
+                                    //.frame(width: 400, height: 200, alignment: .center)
+                                    //.border(Color.black, width: 1)
+                                //Spacer()
+                                //.padding()
+                                
+
+                            }
+                            .frame(width: 400, height: 200, alignment: .center)
+                            Spacer()
+                                
+                            Button(action: {
+                                answerNumber = answerNumber - 2
+                            }) {
+                                Text("異なる経験から分析してみる")
+                                    .font(.system(size: 22, weight: .black, design: .default))
+                                    .frame(width: 320, height: 64)
+                                    .foregroundColor(Color(.black))
+                                    .background(Color(.green))
+                                    .cornerRadius(12)
+                            }
+                            .frame(width: 400, height: 200, alignment: .center)
+                            //.border(Color.black, width: 1)
                         }
-//                    }
+                        .padding()
+                        if answer.hasSuffix("お待ちください"){//Suf後ろ Pre頭
+                            Color.black.opacity(0.3)
+                                .edgesIgnoringSafeArea(.all)
+                            ActivityIndicator()
+                                .frame(width: 400, height: 200, alignment: .top)
+                            //.padding()
+                            //test use
+                            Button(action: {
+                                answer.removeLast(7)
+                                answer.append("緑のボタンから始めにお戻りください")
+                            }) {
+                                Text("キャンセル")
+                                    .font(.system(size: 18, weight: .black, design: .default))
+                                    .frame(width: 180, height: 64)
+                                    .foregroundColor(Color(.black))
+                                    .background(Color(.white))
+                                    .cornerRadius(12)
+                            }
+                            .frame(width: 400, height: 200, alignment: .bottom)
+                            
+                        }
+                        
+                    }
                 }
             }
             .padding()
@@ -275,6 +352,10 @@ struct ContentView_Previews: PreviewProvider {
  
  debag
  全部打ち終わってヒント押すとエラーでる
+ 
+ 多分appendじゃなくて指定したところを書き換える形にしたからだ
+ questionnumberを初期化か何かすればいいはず
+ -chigatta
  
  
  //message.contentに渡す
