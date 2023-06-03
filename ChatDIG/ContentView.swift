@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OpenAISwift
+import UIKit
 
 struct Message: Hashable {
     let text: String
@@ -20,6 +21,47 @@ struct ActivityIndicator: UIViewRepresentable {
 
     func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
         uiView.startAnimating()
+    }
+}
+
+struct BarProgressStyle: ProgressViewStyle {
+ 
+    var height: Double = 30.0
+    var width: Double = 500.0
+    var labelFontStyle: Font = .body
+ 
+    func makeBody(configuration: Configuration) -> some View {
+ 
+        let progress = configuration.fractionCompleted ?? 0.0
+ 
+        GeometryReader { geometry in
+ 
+            VStack() {
+ 
+                configuration.label
+                    .font(labelFontStyle)
+ 
+                RoundedRectangle(cornerRadius: 10.0)
+                    .fill(Color(uiColor: .brown))
+                    .frame(height: height)
+                    .frame(width: width)
+                    .overlay(alignment: .leading) {
+                        RoundedRectangle(cornerRadius: 10.0)
+                            .fill(Color(uiColor: .systemGray5))
+                            .frame(width: width * progress)
+                            .overlay(alignment: .leading) {
+                                if let currentValueLabel = configuration.currentValueLabel {
+ 
+                                    currentValueLabel
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                }
+                            }
+                    }
+ 
+            }
+ 
+        }
     }
 }
 
@@ -40,6 +82,7 @@ struct ContentView: View {
         "ヒント6",
         "ヒント7"
     ]
+    
     @State var questionList: Array<String> = [
         "あなたが人生で一番一生懸命頑張ったことはなんですか？" ,
         "その具体的な経験について教えてください。",
@@ -55,6 +98,7 @@ struct ContentView: View {
         "A","B","C","D","E","F","G"
         ]
     @State var answer: String = "お待ちください"
+    @State private var progress = 0.0
     
     let openAI = OpenAISwift(authToken: "")
     
@@ -94,74 +138,109 @@ struct ContentView: View {
                     
                 } else if answerNumber == 1 {
                     
-                    Text("質問に答えてください。")
-                        .font(.title)
-                        .foregroundColor(Color.orange)
-                    
-                    ScrollViewReader { scrollView in
-                        ScrollView {
-                            ForEach(chatHistory, id: \.self) { message in
-                                HStack {
-                                    if message.isUserMessage == 1 {
-                                        Spacer()
-                                        Text(message.text)
-                                            .padding(8)
-                                            .foregroundColor(.white)
-                                            .background(Color.blue)
-                                            .cornerRadius(8)
+                    ZStack {
+                                Image("dart") // 背景画像
+                                    .resizable()
+                                    .edgesIgnoringSafeArea(.all)
+                                
+                                VStack {
+                                    Text("質問に答えてください。")
+                                        .font(.title)
+                                        .foregroundColor(Color.orange)
+                                    HStack{
+                                        ScrollViewReader { scrollView in
+                                            ScrollView {
+                                                ForEach(chatHistory, id: \.self) { message in
+                                                    HStack {
+                                                        
+                                                        if message.isUserMessage == 1 {
+                                                            Spacer()
+                                                            Text(message.text)
+                                                                .padding(8)
+                                                                .foregroundColor(.white)
+                                                                .background(Color.blue)
+                                                                .cornerRadius(8)
+                                                        } else if message.isUserMessage == 2 {
+                                                            Image("cymbal")
+                                                                .resizable()
+                                                                .renderingMode(.original)
+                                                                .frame(width: 40, height: 40)
+                                                                .padding(.leading)
 
-                                    } else if message.isUserMessage == 2{
-                                        Image("cymbal") // アイコンの表示
-                                            .resizable()
-                                            .renderingMode(.original)
-                                            .frame(width: 40, height: 40) // アイコンのサイズ
-                                            .padding(.trailing, 8) // アイコンとメッセージの間の余白
-
-                                        Text(message.text)
-                                            .padding(8)
-                                            .foregroundColor(.white)
-                                            .background(Color.green)
-                                            .cornerRadius(8)
-                                        Spacer()
-                                    } else if message.isUserMessage == 3{
-                                        Text(message.text)
-                                            .padding(8)
-                                            .foregroundColor(.white)
-                                            .background(Color.yellow)
-                                            .cornerRadius(8)
-                                        Spacer()
+                                                            Text(message.text)
+                                                                .padding(8)
+                                                                .foregroundColor(.white)
+                                                                .background(Color.green)
+                                                                .cornerRadius(8)
+                                                            Spacer()
+                                                        } else if message.isUserMessage == 3 {
+                                                            Text(message.text)
+                                                                .padding(8)
+                                                                .foregroundColor(.white)
+                                                                .background(Color.yellow)
+                                                                .cornerRadius(8)
+                                                            Spacer()
+                                                        }
+                                                        
+                                                    }
+                                                    //.padding(.leading)
+                                                    //.padding(.trailing, 50)
+                                                    .id(message)
+                                                }
+                                            }
+                                            .onChange(of: chatHistory) { _ in
+                                                withAnimation {
+                                                    scrollView.scrollTo(chatHistory.last, anchor: .bottom)
+                                                }
+                                            }
+                                            
+                                        }
+                                        //HStack {
+                                            //Spacer()
+                                                
+                                            ProgressView(value: progress)
+                                                .progressViewStyle(BarProgressStyle())
+                                                .frame(width: 20 , height: 30, alignment: .leading)
+                                                .border(Color.blue)
+                                                .rotationEffect(Angle(degrees: 90))
+                                                .padding(.bottom, 500.0)
+                                                .padding()
+                                            //Spacer()
+                                        //}
+                                        
                                     }
+                                    
+                                    
+                                    
+
+                                    HStack {
+                                        TextField("Type your message here...", text: $inputText)
+                                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                                            .padding(.horizontal)
+                                        Button("Send",action: {
+                                            sendMessage()
+                                        })
+                                        .padding(.trailing)
+                                    }
+
+                                    Button("ヒント見る", action: {
+                                        displayHint()
+                                        //progress += 0.2
+                                    })
+                                    Button("あなたの強みとは...", action: {
+                                        answerNumber = answerNumber + 1
+                                        //progress += 0.2
+                                        AskGPT()
+                                    })
+
+                                    
                                 }
-                                .padding(4)
-                                .id(message)
+
+                                
                             }
-                        }
-                        .onChange(of: chatHistory) { _ in
-                            withAnimation {
-                                scrollView.scrollTo(chatHistory.last, anchor: .bottom)
-                            }
-                        }
-                    }
+                        
                     
-                    HStack {
-                        TextField("Type your message here...", text: $inputText)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.horizontal)
-                        Button(action: sendMessage) {
-                            Text("Send")
-                        }
-                        .padding(.trailing)
-                    }
-                    
-                    Button(action: displayHint) {
-                        Text("ヒント見る")
-                    }
-                    Button("あなたの強みとは...", action: {
-                        answerNumber = answerNumber + 1
-                        AskGPT()
-                    })
-                    
-                } else {
+            } else {
                     ZStack{
                         
                         Image("dart")
@@ -244,6 +323,7 @@ struct ContentView: View {
 
         }
     }
+
     
     func AskGPT(){
         Task{
@@ -319,18 +399,25 @@ struct ContentView: View {
         switch questionNumber {
         case 1:
             chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
+            progress += 0.143
         case 2:
             chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
+            progress += 0.143
         case 3:
             chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
+            progress += 0.143
         case 4:
             chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
+            progress += 0.143
         case 5:
             chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
+            progress += 0.143
         case 6:
             chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
+            progress += 0.143
         case 7:
             chatHistory.append(Message(text: questionList[questionNumber], isUserMessage: 2))
+            progress += 0.143
         default:
             print("これ以上質問はありません")
         }
@@ -342,11 +429,17 @@ struct ContentView: View {
     }
 }
 
+
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
+
+
+
 
 /*
  
