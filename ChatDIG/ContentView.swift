@@ -359,6 +359,7 @@ struct ContentView: View {
         progress = 0.0
         answer = "お待ちください"
         userAnswer = []
+        questionNumber = 0
     }
 
     
