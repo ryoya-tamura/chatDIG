@@ -76,6 +76,7 @@ struct ContentView: View {
     @State private var isUserResponse = true;
     @State private var chatHistory: [Message] = [Message(text: "あなたが人生で一番一生懸命頑張ったことはなんですか？", isUserMessage: 2)]
     @State private var questionNumber = 0
+    @State private var chat: [ChatMessage] = []
     @State private var hintList: Array<String> = [
         "ヒント1",
         "ヒント2",
@@ -382,17 +383,15 @@ struct ContentView: View {
         progress = 0.0
         answer = "お待ちください"
         userAnswer = []
+        questionNumber = 0
     }
 
     
     func AskGPT(){
         Task{
             do {
-                var chat: [ChatMessage] = [
-                    ChatMessage(role: .system, content: "あなたは学生の就職活動を支援するエキスパートです。"),
-                ]
                 if userAnswer.count >= 7 {
-                    let prompt = """
+                    prompt = """
                     ##指示##
                     あなたは新卒採用人事のプロフェッショナルです。
                     以下の文章から、この#文章を書いた人の強みを分析して#回答例を参考に#形式のフォーマットで1つ教えてください。
