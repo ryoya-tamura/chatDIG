@@ -81,7 +81,8 @@ struct ContentView: View {
         "ヒント4",
         "ヒント5",
         "ヒント6",
-        "ヒント7"
+        "ヒント7",
+        "質問は以上です。結果出力画面に進んでください。"
     ]
     
     @State var questionList: Array<String> = [
@@ -95,9 +96,10 @@ struct ContentView: View {
         "お疲れ様でした。質問は以上です。結果出力の画面に進んでください。"]
     
     @State var prompt = ""
-    @State var userAnswer: Array<String> = [
-        "A","B","C","D","E","F","G"
-        ]
+//    @State var userAnswer: Array<String> = [
+//        "A","B","C","D","E","F","G"
+//        ]
+    @State var userAnswer: Array<String> = []
     @State var answer: String = "お待ちください"
     @State private var progress = 0.0
     
@@ -332,6 +334,7 @@ struct ContentView: View {
         chatHistory = [Message(text: "あなたが人生で一番一生懸命頑張ったことはなんですか？", isUserMessage: 2)]
         progress = 0.0
         answer = "お待ちください"
+        userAnswer = []
     }
 
     
@@ -403,8 +406,8 @@ struct ContentView: View {
         if inputText.isEmpty { return }
         
         chatHistory.append(Message(text: inputText, isUserMessage: 1))
-        userAnswer[questionNumber] = inputText
-        //userAnswer.append(inputText)
+//        userAnswer[questionNumber] = inputText
+        userAnswer.append(inputText)
         questionNumber+=1
         switch questionNumber {
         case 1:
