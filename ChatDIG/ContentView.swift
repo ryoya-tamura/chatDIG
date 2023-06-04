@@ -20,6 +20,7 @@ struct ActivityIndicator: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        uiView.color = UIColor.green
         uiView.startAnimating()
     }
 }
@@ -253,14 +254,14 @@ struct ContentView: View {
                         
                         VStack{
                             Text("あなたの強みは...")
-                            .font(.title)
-                            .frame(width: 400, height: 20, alignment: .top)
+                                .font(.title)
+                                .frame(width: 400, height: 20, alignment: .top)
                             //.border(Color.black, width: 1)
                             //.padding()
                             Text("分析結果")//関数を代入
                             //.frame(width: 400, height: 200, alignment: .center)
                             //.border(Color.black, width: 1)
-                            .padding()
+                                .padding()
                             
                             ZStack{
                                 
@@ -270,20 +271,22 @@ struct ContentView: View {
                                     .frame(width:380, height: 200)  // フレームサイズ指定
                                 
                                 Text(answer)//分析結果を表示
-                                    //.frame(width: 400, height: 200, alignment: .center)
-                                    //.border(Color.black, width: 1)
+                                //.frame(width: 400, height: 200, alignment: .center)
+                                //.border(Color.black, width: 1)
                                 //Spacer()
                                 //.padding()
                                 
-
+                                
                             }
                             .frame(width: 400, height: 200, alignment: .center)
                             Spacer()
-                                
+                            
+                            
                             Button(action: {
-                                answerNumber = answerNumber - 2
-                            }) {
-                                Text("異なる経験から分析してみる")
+                                answerNumber -= 2
+                                Initialize()
+                            })
+                            { Text("異なる経験から分析してみる")
                                     .font(.system(size: 22, weight: .black, design: .default))
                                     .frame(width: 320, height: 64)
                                     .foregroundColor(Color(.black))
@@ -322,6 +325,13 @@ struct ContentView: View {
             .padding()
 
         }
+    }
+    
+    
+    func Initialize(){
+        chatHistory = [Message(text: "あなたが人生で一番一生懸命頑張ったことはなんですか？", isUserMessage: 2)]
+        progress = 0.0
+        answer = "お待ちください"
     }
 
     
