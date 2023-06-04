@@ -30,7 +30,7 @@ struct ActivityIndicator: UIViewRepresentable {
 struct BarProgressStyle: ProgressViewStyle {
  
     var height: Double = 30.0
-    var width: Double = 508.0
+    var width: Double = 500.0
     var labelFontStyle: Font = .body
  
     func makeBody(configuration: Configuration) -> some View {
@@ -65,10 +65,47 @@ struct BarProgressStyle: ProgressViewStyle {
                     }
  
             }
- 
+            //.border(Color.black)
         }
     }
 }
+
+/*
+struct MessageInputView: View {
+    @Binding var text: String
+    @FocusState var isFocus: Bool
+
+    var body: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            Divider()
+            HStack(alignment: .bottom) {
+                TextField("TextField",text: self.$text, axis: .vertical)
+                    .padding(8)
+                    .lineLimit(1...10)
+                    .frame(minHeight: 40)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(8.0)
+                    .focused($isFocus)
+                Button {
+                    sendMessage()
+                  // action
+                } label: {
+                    Text("Send")
+                        .frame(width: 72, height: 40)
+                        .background(Color.cyan)
+                        .foregroundColor(.white)
+                        .cornerRadius(8.0)
+                }
+            }
+            .padding(8)
+            .background(Color.white)
+        }
+    }
+}
+*/
+
+
 
 struct RoundedCorner: Shape {
 
@@ -129,6 +166,8 @@ struct ContentView: View {
     @State var topRight: CGFloat = 0
     @State var bottomLeft: CGFloat = 0
     @State var bottomRight: CGFloat = 0
+    
+    @FocusState var isFocus: Bool
     
     let openAI = OpenAISwift(authToken: "")
     
@@ -201,165 +240,207 @@ struct ContentView: View {
                                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                                     .edgesIgnoringSafeArea(.all)
                                     
-                                VStack {
-                                    //Spacer()
-                                    //Text("")
-                                    //.font()
-                                    
-                                    ZStack {
-                                        Text("質問に答えてください。")
-                                            .font(.title)
-                                            .foregroundColor(Color(UIColor(red: 176/255, green: 242/255, blue: 238/255, alpha: 1)))
-                                            //.border(Color.blue)
-                                            //.frame(width: 400, height: 200, alignment: .top)
-                                            .padding(.top, 30.0)
-                                        
-                                        HStack{
-                                            Button(action: {
-                                                displayHint()
-                                                //progress += 0.2
-                                            }){
-                                                Text("ヒント")
-                                                    .font(.system(size: 16, weight: .black, design: .default))
-                                                    .frame(width: 120, height: 100)
-                                                    .foregroundColor(Color(.black))
-                                                    .background(Image("cloud"))
-                                                    .cornerRadius(12)
-                                            }
-                                            //.frame(width: 100 , height: 30, alignment: .center)
-                                            //.border(Color.black)
-                                            .padding(.trailing, 250)
-                                            
-                                            /*
-                                            Button( action: {
-                                                //answerNumber = answerNumber + 1
-                                                //progress += 0.2
-                                                //AskGPT()
-                                            }){
-                                                Text("あなたの強みとは...")
-                                                    .font(.system(size: 16, weight: .black, design: .default))
-                                                    .frame(width: 180, height: 32)
-                                                    .foregroundColor(Color(.black))
-                                                    .background(Color(.white))
-                                                    .cornerRadius(12)
-                                            }
-                                            //.frame(width: 200 , height: 30, alignment: .center)
-                                            //.border(Color.blue)
-                                            */
-                                        }
-                                        
-                                    }
-                                    
-                                    HStack{
-                                        ScrollViewReader { scrollView in
-                                            ScrollView {
-                                                ForEach(chatHistory, id: \.self) { message in
-                                                    HStack {
-                                                        
-                                                        if message.isUserMessage == 1 {
-                                                            Spacer()
-                                                            Text(message.text)
-                                                                .padding(8)
-                                                                .foregroundColor(.black)
-                                                                .background(Color(UIColor(red: 255/255, green: 187/255, blue: 107/255, alpha: 1)))
-                                                                .cornerRadius(8, corners: [.topLeft, .bottomLeft, .bottomRight])
-                                                            
-                                                        } else if message.isUserMessage == 2 {
-                                                            //user massage
-                                                                    Image("Icon DIG mogra")
-                                                                        .resizable()
-                                                                        //.renderingMode(.original)
-                                                                        .frame(width: 40, height: 40, alignment: .topLeading)
-                                                                        //.padding(.left, 2)
-                                                                    
-                                                                Text(message.text)
-                                                                    .padding(8)
-                                                                    .foregroundColor(.black)
-                                                                    .background(Color.white)
-                                                                    .cornerRadius(8, corners: [.topRight, .bottomLeft, .bottomRight])
-                                                                    Spacer()
-                                                            
-                                                        } else if message.isUserMessage == 3 {
-                                                            //hint
-                                                            Image("Icon DIG mogra")
-                                                                .resizable()
-                                                                //.renderingMode(.original)
-                                                                .frame(width: 40, height: 40, alignment: .topLeading)
-                                                                //.padding(.left, 2)
-                                                            Text(message.text)
-                                                                .padding(8)
-                                                                .foregroundColor(.black)
-                                                                .background(Color.yellow)
-                                                                .cornerRadius(8, corners: [.topRight, .bottomLeft, .bottomRight])
-                                                            Spacer()
-                                                        }
-                                                        
-                                                    }
-                                                    //.padding(.leading)
-                                                    //.padding(.trailing, 50)
-                                                    .id(message)
-                                                }
-                                            }
-                                            .onChange(of: chatHistory) { _ in
-                                                withAnimation {
-                                                    scrollView.scrollTo(chatHistory.last, anchor: .bottom)
-                                                }
-                                            }
-                                            
-                                        }
-                                        //.border(Color.blue)
-                                        .padding(.leading)
-                                                
-                                            ProgressView(value: progress)
-                                                .progressViewStyle(BarProgressStyle())
-                                                .frame(width: 20 , height: 30, alignment: .leading)
-                                                //.border(Color.blue)
-                                                .rotationEffect(Angle(degrees: 90))
-                                                .padding(.bottom, 579.0)//bar の位置
-                                                .padding()
-                                                //.border(Color.blue)
-                                    }
-                                    .frame(width: 400, height: 600, alignment: .center)
-                                    //.border(Color.black)
-                                    
-                                    
-
-                                    HStack {
-                                        TextField("Type your message here...", text: $inputText) //, axis: .vertical
-                                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                                            .keyboardType(.default)
-                                            .padding(.horizontal)
-                                        Button(action: {
-                                            sendMessage()
-                                        }){
-                                            Image("push")
-                                                .resizable()
-                                                .frame(width: 40, height: 38)
-                                        }
-                                        .padding(.trailing)
-                                    }
+                        VStack {
+                            //Spacer()
+                            //Text("")
+                            //.font()
+                            
+                            ZStack{
+                                Text("質問に答えてください。")
+                                    .font(.title)
+                                    .foregroundColor(Color(UIColor(red: 176/255, green: 242/255, blue: 238/255, alpha: 1)))
                                     //.border(Color.blue)
-
-                                    /*
-                                    Button("ヒント見る", action: {
+                                    //.frame(width: 400, height: 200, alignment: .top)
+                                    //.padding(.top, 30.0)
+                                
+                                HStack(spacing:0) {
+                                    Button(action: {
                                         displayHint()
                                         //progress += 0.2
-                                    })
-                                     */
-                                     Button( action: {
-                                         answerNumber = answerNumber + 1
-                                         //progress += 0.2
-                                         AskGPT()
-                                     }){
-                                         Text("あなたの強みとは...")
-                                             .font(.system(size: 16, weight: .black, design: .default))
-                                             .frame(width: 180, height: 32)
-                                             .foregroundColor(Color(.black))
-                                             .background(Color(UIColor(red: 225/255, green: 255/255, blue: 103/255, alpha: 1)))
-                                             .cornerRadius(12)
-                                     }
+                                    }){
+                                        Text("ヒント")
+                                            .font(.system(size: 16, weight: .black, design: .default))
+                                            .frame(width: 120, height: 70)
+                                            .foregroundColor(Color(.black))
+                                            .background(Image("cloud"))
+                                            .cornerRadius(12)
+                                    }
+                                    //.frame(width: 100 , height: 30, alignment: .center)
+                                    .padding(.trailing, 250)
+                                    //.border(Color.black)
                                     
-
+                                    /*
+                                     Button( action: {
+                                     //answerNumber = answerNumber + 1
+                                     //progress += 0.2
+                                     //AskGPT()
+                                     }){
+                                     Text("あなたの強みとは...")
+                                     .font(.system(size: 16, weight: .black, design: .default))
+                                     .frame(width: 180, height: 32)
+                                     .foregroundColor(Color(.black))
+                                     .background(Color(.white))
+                                     .cornerRadius(12)
+                                     }
+                                     //.frame(width: 200 , height: 30, alignment: .center)
+                                     //.border(Color.blue)
+                                     */
+                                }
+                                
+                            }
+                            .frame(width: 10, height: 10)
+                            .padding(.bottom, 60)
+                            //.border(Color.red)
+                            
+                            VStack(spacing:0){
+                                HStack{
+                                    ScrollViewReader { scrollView in
+                                        ScrollView {
+                                            ForEach(chatHistory, id: \.self) { message in
+                                                HStack {
+                                                    
+                                                    if message.isUserMessage == 1 {
+                                                        Spacer()
+                                                        Text(message.text)
+                                                            .padding(8)
+                                                            .foregroundColor(.black)
+                                                            .background(Color(UIColor(red: 255/255, green: 187/255, blue: 107/255, alpha: 1)))
+                                                            .cornerRadius(8, corners: [.topLeft, .bottomLeft, .bottomRight])
+                                                        
+                                                    } else if message.isUserMessage == 2 {
+                                                        //user massage
+                                                        Image("Icon DIG mogra")
+                                                            .resizable()
+                                                        //.renderingMode(.original)
+                                                            .frame(width: 40, height: 40, alignment: .topLeading)
+                                                        //.padding(.left, 2)
+                                                        
+                                                        Text(message.text)
+                                                            .padding(8)
+                                                            .foregroundColor(.black)
+                                                            .background(Color.white)
+                                                            .cornerRadius(8, corners: [.topRight, .bottomLeft, .bottomRight])
+                                                        Spacer()
+                                                        
+                                                    } else if message.isUserMessage == 3 {
+                                                        //hint
+                                                        Image("Icon DIG mogra")
+                                                            .resizable()
+                                                        //.renderingMode(.original)
+                                                            .frame(width: 40, height: 40, alignment: .topLeading)
+                                                        //.padding(.left, 2)
+                                                        Text(message.text)
+                                                            .padding(8)
+                                                            .foregroundColor(.black)
+                                                            .background(Color.yellow)
+                                                            .cornerRadius(8, corners: [.topRight, .bottomLeft, .bottomRight])
+                                                        Spacer()
+                                                    }
+                                                    
+                                                }
+                                                //.padding(.leading)
+                                                //.padding(.trailing, 50)
+                                                .id(message)
+                                            }
+                                        }
+                                        .onChange(of: chatHistory) { _ in
+                                            withAnimation {
+                                                scrollView.scrollTo(chatHistory.last, anchor: .bottom)
+                                            }
+                                        }
+                                        
+                                    }
+                                    .frame(width: 320, height: 550, alignment: .leading)
+                                    //.border(Color.red)
+                                    //.padding(.leading)
+                                    
+                                    ProgressView(value: progress)
+                                        .progressViewStyle(BarProgressStyle())
+                                        .frame(width: 20 , height: 30, alignment: .leading)
+                                    //.border(Color.red)
+                                        .rotationEffect(Angle(degrees: 90))
+                                        .padding(.bottom, 530.0)//bar の位置
+                                        .padding(.leading)
+                                        .frame(height: 500)
+                                    //.border(Color.blue)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .contentShape(Rectangle())
+                                .onTapGesture {isFocus = false}
+                                //.border(Color.black)
+                                
+                                
+                                VStack(spacing: 0) {
+                                    //Spacer()
+                                    Divider()
+                                    HStack(alignment: .bottom) {
+                                        TextField("入力してください",text: self.$inputText, axis: .vertical)
+                                            .padding(8)
+                                            .lineLimit(1...10)
+                                            .frame(minHeight: 40)
+                                            .background(Color.white)
+                                            .cornerRadius(8.0)
+                                            .focused($isFocus)
+                                        Button {
+                                            sendMessage()
+                                          // action
+                                        } label: {
+                                            Text("↑")
+                                            .foregroundColor(.black)
+                                            .font(.title)
+                                            .frame(width: 40, height: 40)
+                                            .background(Color(UIColor(red: 255/255, green: 187/255, blue: 107/255, alpha: 1)))
+                                            .cornerRadius(8, corners: [.topLeft,.topRight, .bottomLeft, .bottomRight])
+                                        }
+                                    }
+                                    .padding(8)
+                                    //.background(Color.white)
+                                }
+                                
+                                //MessageInputView(text: $inputText, isFocus: _isFocus)
+                                
+                                
+                                /*
+                                 HStack {
+                                 TextField("Type your message here...", text: $inputText) //, axis: .vertical
+                                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                                 .keyboardType(.default)
+                                 .padding(.horizontal)
+                                 Button(action: {
+                                 sendMessage()
+                                 }){
+                                 Image("push")
+                                 .resizable()
+                                 .frame(width: 40, height: 38)
+                                 }
+                                 .padding(.trailing)
+                                 }
+                                 //.border(Color.blue)
+                                 
+                                 */
+                                
+                                /*
+                                 Button("ヒント見る", action: {
+                                 displayHint()
+                                 //progress += 0.2
+                                 })
+                                 */
+                                
+                                Button( action: {
+                                    answerNumber = answerNumber + 1
+                                    //progress += 0.2
+                                    AskGPT()
+                                }){
+                                    Text("あなたの強みとは...")
+                                        .font(.system(size: 16, weight: .black, design: .default))
+                                        .frame(width: 280, height: 40)
+                                        .foregroundColor(Color(.black))
+                                        .background(Color(UIColor(red: 225/255, green: 255/255, blue: 103/255, alpha: 1)))
+                                        .cornerRadius(12)
+                                }
+                                //.border(Color.black)
+                                
+                            }
                                     
                                 }
 
@@ -413,7 +494,7 @@ struct ContentView: View {
                             
                             
                             Button(action: {
-                                answerNumber -= 2
+                                answerNumber = 0
                                 Initialize()
                             })
                             { Text("異なる経験から分析してみる")
