@@ -309,6 +309,7 @@ struct ContentView: View {
                                 }
                                 
                             }
+                            .ignoresSafeArea(.keyboard, edges: .bottom)
                             .frame(width: 10, height: 10)
                             .padding(.bottom, 60)
                             //.border(Color.red)
@@ -388,6 +389,7 @@ struct ContentView: View {
                                 .frame(maxWidth: .infinity)
                                 .contentShape(Rectangle())
                                 .onTapGesture {isFocus = false}
+                                .ignoresSafeArea(.keyboard, edges: .bottom)
                                 //.border(Color.black)
                                 
                                 
@@ -459,9 +461,9 @@ struct ContentView: View {
                                         .background(Color(UIColor(red: 225/255, green: 255/255, blue: 103/255, alpha: 1)))
                                         .cornerRadius(12)
                                 }
+                                .ignoresSafeArea(.keyboard, edges: .bottom)
                                 //.border(Color.black)
-                                
-                            }
+                                }
                                     
                                 }
 
@@ -502,7 +504,7 @@ struct ContentView: View {
                                     .frame(width:380, height: 300)  // フレームサイズ指定
                                 
                                 Text(answer)//分析結果を表示
-                                .frame(width: 400, height: 200)
+                                .frame(width: 300, height: 200)
                                 //.border(Color.black, width: 1)
                                 //Spacer()
                                 //.padding()
