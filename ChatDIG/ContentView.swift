@@ -379,9 +379,9 @@ struct ContentView: View {
                                     ProgressView(value: progress)
                                         .progressViewStyle(BarProgressStyle())
                                         .frame(width: 20 , height: 30, alignment: .leading)
-                                    //.border(Color.red)
+                                        //.border(Color.red)
                                         .rotationEffect(Angle(degrees: 90))
-                                        .padding(.bottom, 530.0)//bar の位置
+                                        .padding(.bottom, 528.0)//bar の位置
                                         .padding(.leading)
                                         .frame(height: 500)
                                     //.border(Color.blue)
@@ -389,6 +389,7 @@ struct ContentView: View {
                                 .frame(maxWidth: .infinity)
                                 .contentShape(Rectangle())
                                 .onTapGesture {isFocus = false}
+                                //.position(x:200, y:345)
                                 .ignoresSafeArea(.keyboard, edges: .bottom)
                                 //.border(Color.black)
                                 
@@ -469,6 +470,7 @@ struct ContentView: View {
 
                                 
                             }
+                            .ignoresSafeArea(.keyboard, edges: .bottom)
                             .frame(width: 400, height: 200, alignment: .center)
                         
                     
